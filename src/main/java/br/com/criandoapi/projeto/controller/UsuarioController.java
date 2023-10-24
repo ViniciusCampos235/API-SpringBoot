@@ -15,20 +15,21 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping
+@CrossOrigin("*")
+@RequestMapping("usuarios")
 public class UsuarioController {
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
     @Transactional
-    @GetMapping("usuarios")
+    @GetMapping
     public List<UsuarioModel> listaUsuarios(){
         return (List<UsuarioModel>) usuarioRepository.findAll();
     }
 
     @Transactional
-    @PostMapping("usuarios")
+    @PostMapping
     public ResponseEntity<UsuarioModel> criarUsuario(@RequestBody @Valid UsuarioRecordsDto usuarioRecord){
         UsuarioModel usuarioModel = new UsuarioModel();
         BeanUtils.copyProperties(usuarioRecord, usuarioModel);
@@ -48,19 +49,11 @@ public class UsuarioController {
         return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuarioModel));
     }
 
-/*    @PutMapping("/usuarios/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable(value = "id") Integer id,
-                                           @Valid @RequestBody UsuarioRecordsDto usuarioRecord) throws ResourceNotFoundException {
-        UsuarioModel usuarioModel = usuarioRepository.findById(id).orElseThrow(() ->
-                new ResourceNotFoundException("User not found for this id :: " + id));
-
-        usuarioModel.setEmail(usuarioModel.getEmail());
-        usuarioModel.setNome_completo(usuarioModel.getLastName());
-        usuarioModel.setUsername(usuarioModel.getFirstName());
-        final User updatedUser = userRepository.save(usuarioModel);
-        return ResponseEntity.ok(updatedUser);
-    }*/
-
-
+    @DeleteMapping("/{id}")
+    public Optional<UsuarioModel> excluiUsuario(@PathVariable Integer id){
+        Optional<UsuarioModel> usuarioModel = usuarioRepository.findById(id);
+        usuarioRepository.deleteById(id);
+        return usuarioModel;
+    }
 
 }

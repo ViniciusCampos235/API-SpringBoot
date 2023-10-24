@@ -1,0 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+h1{
+    margin: 40px 0 40px 0;
+    color: rgb(83, 164, 235);
+}
+
+body{
+    background-color: #f5c9b5;
+}
+
+.box, form{
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+input{
+    width: 250px;
+    height: 25px;
+    border-radius: 30px;
+    padding: 0 15px 0 15px;
+}
+
+button{
+    background-color: rgb(83, 164, 235);
+    color: white;
+    font-size: 18px;
+    width: 250px;
+    height: 25px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 30px;
+    padding: 0 15px 0 15px;
+}
